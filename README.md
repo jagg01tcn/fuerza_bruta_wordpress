@@ -1,4 +1,6 @@
-# fuerza_bruta_wordpress
+ # Identificación del endpoint XML-RPC
+ ## Antes de lanzar el ataque comprobar si es posible hacerlo mediante este script
+
 1. Primero vemos si esta expuesto el archivo xmlrpc  buscando los siguiente `URL/xmlrpc.php`  
 
 ```jsx
@@ -65,8 +67,56 @@ curl -s -X POST "http://127.0.0.1:31337/xmlrpc.php" -d@file_V1.xml
 curl -s -X POST "http://127.0.0.1:31337/xmlrpc.php" -d@file_v2.xml
 ```
 
-<img width="780" height="410" alt="image" src="https://github.com/user-attachments/assets/1842243c-f045-4da2-bfa8-602fd835397a" />
+10. Como Wordpress responde hemos comprobado que wordpress responde a la peticiones estamos listos para lanzar el script
 
 
+# Script Para hacer Fuerza bruta a wordpress
+Repositorio que contiene un script Bash para realizar ataques de fuerza bruta contra WordPress mediante XML-RPC, utilizando el método `wp.getUsersBlogs`. Pensado para auditorías de seguridad y laboratorios de ciberseguridad.
 
-10. ejecutar el script
+---
+
+# Propósito
+Este proyecto demuestra cómo explotar el endpoint `xmlrpc.php` de WordPress para validar credenciales mediante peticiones XML-RPC. El script automatiza el proceso de prueba de contraseñas usando un diccionario, con el objetivo de evaluar la robustez de las credenciales de un usuario.
+
+Repositorio orientado a reclutadores y equipos técnicos como muestra de conocimientos en:
+- Pentesting web
+- Automatización en Bash
+- Análisis de servicios WordPress
+- Ataques de autenticación
+
+---
+
+# Descripción detallada del script
+
+## `wp_xmlrpc_bruteforce.sh`
+
+### Función
+Ejecuta un ataque de fuerza bruta contra un sitio WordPress enviando peticiones POST al endpoint `xmlrpc.php` usando el método `wp.getUsersBlogs`. Cada intento prueba una contraseña distinta para un usuario específico.
+
+---
+
+## Funcionamiento interno
+
+### `createXML`
+- Genera dinámicamente un archivo XML con el usuario y la contraseña.
+- Envía la petición mediante `curl`.
+- Analiza la respuesta del servidor.
+- Detecta éxito cuando no aparecen mensajes de error conocidos.
+- Detiene el script al encontrar una contraseña válida.
+
+### Control de señales
+- Captura `CTRL+C` para finalizar el proceso limpiamente.
+
+---
+
+# Requisitos
+- `bash`
+- `curl`
+- Acceso al endpoint `xmlrpc.php`
+- Diccionario de contraseñas (`rockyou.txt`)
+  - Ruta por defecto: `/usr/share/wordlists/rockyou.txt`
+- Conectividad de red con el objetivo
+
+---
+
+
